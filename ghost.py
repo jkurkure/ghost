@@ -10,12 +10,11 @@ file_path = os.path.join(data_dir, f"{start}.log")
 if (len(sys.argv) > 1):
     print(f"{' '.join(sys.argv[1:])} has been scheduled to run every minute and logs can be found at {file_path}")
 
-    stamp = f"echo {time.ctime()} >> {file_path}"
     command = f"{' '.join(sys.argv[1:])} >> {file_path}"
     script = f'''
 import os, time
 while True:
-    os.system(r"{stamp}")
+    os.system("echo " + str(time.ctime()) + " >> " + r"{file_path}")
     os.system(r"{command}")
     time.sleep(60.0 - ((time.time() - {start}) % 60.0))
     '''
@@ -27,4 +26,4 @@ while True:
     # spinlock until helper exists
     while not os.path.exists(helper):
         pass
-    subprocess.Popen(["python3", helper])
+    subprocess.Popen(["pythonw", helper])
