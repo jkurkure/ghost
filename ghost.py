@@ -27,4 +27,4 @@ while True:
     # spinlock until helper exists
     while not os.path.exists(helper):
         pass
-    subprocess.Popen(["pythonw", helper])
+    subprocess.Popen(["python3", helper])
